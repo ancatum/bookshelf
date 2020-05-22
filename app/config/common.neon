@@ -1,0 +1,52 @@
+parameters:
+    perPage: 39
+
+
+application:
+	errorPresenter: Error
+	mapping:
+		*: App\*Module\Presenters\*Presenter
+
+
+session:
+	expiration: 14 days
+
+
+services:
+	router: App\Router\RouterFactory::createRouter
+	- App\Controls\ISignInFormFactory
+	- App\Controls\IAuthorFormFactory
+	- App\Controls\IBookFormFactory
+	- App\Controls\IBookReaderFormFactory
+	- App\Controls\IEditionFormFactory
+	- App\Controls\IGenreFormFactory
+	- App\Controls\INationalityFormFactory
+	- App\Controls\IPublisherFormFactory
+	- App\Controls\IReadBookFormFactory
+	- App\Controls\ISeriesFormFactory
+	- App\Controls\ITagFormFactory
+	- App\Controls\ITranslatorFormFactory
+	- App\Model\Manager\AuthorManager
+	- App\Model\Manager\BookManager
+	- App\Model\Manager\BookReaderManager
+	- App\Model\Manager\EditionManager
+	- App\Model\Manager\GenreManager
+	- App\Model\Manager\NationalityManager
+	- App\Model\Manager\PublisherManager
+	- App\Model\Manager\ReadBookManager
+	- App\Model\Manager\ReportManager
+	- App\Model\Manager\SeriesManager
+	- App\Model\Manager\TagManager
+	- App\Model\Manager\TranslatorManager
+	- App\Helpers\DurationHelper
+	- App\Helpers\Latte\DurationFilter
+	- App\Helpers\Latte\GenderFilter
+	- App\Helpers\Latte\BookTypeFilter
+	- App\Helpers\Latte\SourceFilter
+	- App\Helpers\Latte\RatingFilter
+	- App\Helpers\Latte\MonthNameFilter
+	- App\Presenters\AuthorPresenter(%perPage%)
+	- App\Presenters\BookPresenter(%perPage%)
+	- App\Presenters\BookReaderPresenter(%perPage%)
+	- App\Presenters\ReadBookPresenter(%perPage%)
+	- App\Presenters\TranslatorPresenter(%perPage%)

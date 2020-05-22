@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+
+    <title>{ifset title}{include title|stripHtml} | {/ifset}Áni knihovna</title>
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700&display=swap&subset=latin-ext" rel="stylesheet">
+    <link rel="stylesheet" href="{$basePath}/font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" href="{$basePath}/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{$basePath}/css/chosen.min.css">
+    <link rel="stylesheet" href="{$basePath}/css/style.css">
+</head>
+
+<body>
+<div n:foreach="$flashes as $flash" n:class="flash, $flash->type">{$flash->message}</div>
+<header>
+    <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-info">
+        <div class="container">
+            <a class="navbar-brand" n:href=":Homepage:default">Knížky</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Lidé
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" n:href=":Author:default">Autoři</a>
+                            <a class="dropdown-item" n:href=":Translator:default">Překladatelé</a>
+                            <a class="dropdown-item" n:href=":BookReader:default">Interpreti audioknih</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" n:href=":Nationality:default">Národnosti</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Knihy
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" n:href=":Book:default">Knihy</a>
+                            <a class="dropdown-item" n:href=":Genre:default">Žánry</a>
+                            <a class="dropdown-item" n:href=":Tag:default">Štítky</a>
+                            <a class="dropdown-item" n:href=":Series:default">Série</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" n:href=":Publisher:default">Nakladatelství</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" n:href=":ReadBook:default">Přečtené knihy</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" n:href=":Report:default">Přehledy</a>
+                    </li>
+                </ul>
+                {if $user->loggedIn}
+                    <a n:href="Sign:out" class="btn sign">Odhlásit</a>
+                {else}
+                    <a n:href="Sign:in" class="btn sign">Přihlásit</a>
+                {/if}
+            </div>
+        </div>
+    </nav>
+</header>
+<section class="container content">
+    {include content}
+    {define paginator}
+        <div>
+            <ul class="pagination pagination-sm">
+                <li class="page-item">
+                    <a class="btn btn-sm btn-outline-info {if $page == 1}disabled{/if}" n:href="default 1, $sortBy, $direction">
+                        <i class="fa fa-angle-double-left"></i>
+                    </a>
+                </li>
+                <li class="page-item mr-1">
+                    <a n:href="default $page-1, $sortBy, $direction" class="btn btn-sm btn-outline-info {if $page == 1}disabled{/if}">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                </li>
+                {for $i = 1; $i <= $lastPage; $i++}
+                    {if $page > 3 && $i === 2}
+                        <li class="page-item disabled"><a class="btn btn-sm btn-outline-info disabled">...</a></li>
+                    {/if}
+                    {if $i == $page}
+                        <li class="page-item">
+                            <a class="btn btn-sm {if $i == $page}btn-info{else}btn-outline-info{/if}" n:href="default $i, $sortBy, $direction">{$i}</a>
+                        </li>
+                    {elseif $i == $page + 1 || $i === $page + 2 || $i === $page - 1 || $i === $page - 2}
+                        <li class="page-item">
+                            <a class="btn btn-sm btn-outline-info" n:href="default $i,  $sortBy, $direction">{$i}</a>
+                        </li>
+                    {/if}
+                    {if $page < $lastPage - 2 && $i === $lastPage - 1}
+                        <li class="page-item disabled"><a class="btn btn-sm btn-outline-info disabled">...</a></li>
+                    {/if}
+                {/for}
+                <li class="page-item ml-1">
+                    <a n:href="default $page+1, $sortBy, $direction" class="btn btn-sm btn-outline-info {if $page == $lastPage}disabled{/if}">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                </li>
+                <li class="page-item">
+                    <a class="btn btn-sm btn-outline-info {if $page == $lastPage}disabled{/if}" n:href="default $lastPage, $sortBy, $direction">
+                        <i class="fa fa-angle-double-right"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    {/define}
+</section>
+<footer>
+    <h5 class="text-center">Vytvořeno s láskou ke knihám</h5>
+    <p class="text-center">&copy; {$now|date:"Y"} Áňa T.</p>
+</footer>
+
+{block scripts}
+    <script src="{$basePath}/js/jquery.min.js"></script>
+    <script src="{$basePath}/js/nette.ajax.js"></script>
+    <script src="{$basePath}/js/netteForms.min.js"></script>
+    <script src="{$basePath}/js/popper.min.js"></script>
+    <script src="{$basePath}/js/bootstrap.min.js"></script>
+    <script src="{$basePath}/js/chosen.jquery.min.js"></script>
+    <script src="{$basePath}/js/mask.js"></script>
+    <script src="{$basePath}/js/main.js?v=1.2"></script>
+{/block}
+</body>
+</html>

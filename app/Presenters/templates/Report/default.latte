@@ -1,0 +1,49 @@
+{block content}
+    <h2 class="text-center text-info mt-1 mb-3">Přehledy a statistiky</h2>
+    <ul class="nav nav-tabs">
+        {for $i = $newestYear; $i >= $oldestYear; $i--}
+            <li class="nav-item">
+                <a class="nav-link {if $i == $newestYear}active{/if}" data-toggle="tab" href="#year{$i}">{$i}</a>
+            </li>
+        {/for}
+    </ul>
+    <div class="tab-content">
+        {for $i = $newestYear; $i >= $oldestYear; $i--}
+            <div class="tab-pane fade mt-3 {if $i == $newestYear}show active{/if}" id="year{$i}">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <dl class="row mb-0">
+                            <dt class="col-6">Celkem přečteno</dt>
+                            <dd class="col-6">{$readBookYearCount[$i]}</dd>
+                        </dl>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <dl class="row mb-0">
+                            <dt class="col-6">Počet stran</dt>
+                            <dd class="col-6">{$pagesCount[$i]}</dd>
+                        </dl>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <dl class="row mb-0">
+                            <dt class="col-6">Doba trvání audioknih</dt>
+                            <dd class="col-6">{$duration[$i]|duration}</dd>
+                        </dl>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-lg-6">
+                        <dl class="row mb-0">
+                            <dt class="col-6">Průměrné hodnocení</dt>
+                            <dd class="col-6">{$rating[$i]|number: 2}</dd>
+                        </dl>
+                    </div>
+                </div>
+                <a n:href="detail $i">Více statistik</a>
+            </div>
+        {/for}
+    </div>
+{/block}

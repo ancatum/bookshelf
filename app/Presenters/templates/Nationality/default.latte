@@ -1,0 +1,13 @@
+{block content}
+    <h2 class="text-center text-info mt-1 mb-3">Přehled národností</h2>
+    <a n:href="add"><i class="fa fa-plus-circle"></i> Přidat novou národnost</a>
+    <ul>
+        {foreach $nationalities as $nationality}
+            <li>{$nationality->name}
+                <a n:href="edit $nationality->id" data-toggle="tooltip" title="Upravit">
+                    <i class="fa fa-pencil"></i>
+                </a>
+            </li>
+        {/foreach}
+    </ul>
+{/block}

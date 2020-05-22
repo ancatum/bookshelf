@@ -1,0 +1,58 @@
+{block content}
+    <h2 class="text-center text-info mt-1 mb-3">Přehled autorů</h2>
+    <div class="row">
+        <div class="mb-4 mr-0 ml-auto">
+            Seřadit podle:
+            <select id="sorter">
+                <option value="">---</option>
+                <option value="surname-asc" {if $defaultSort == "surname-asc"}selected{/if}>Příjmení A-Z</option>
+                <option value="nationality-asc" {if $defaultSort == "nationality-asc"}selected{/if}>Národnosti A-Z</option>
+                <option value="date_of_birth-asc" {if $defaultSort == "date_of_birth-asc"}selected{/if}>Data narození</option>
+                <option value="date_of_death-desc" {if $defaultSort == "date_of_death-desc"}selected{/if}>Data úmrtí</option>
+            </select>
+        </div>
+    </div>
+    {if $authors->count() == 0}
+        <a n:href="add"><i class="fa fa-plus-circle"></i> Přidat autora</a>
+    {/if}
+    <div class="row row-cols-md-4">
+        {if $authors->count() > 0}
+            <div class="col mb-3">
+                <div class="card h-100">
+                    <a n:href="add" class="add-item" data-toggle="tooltip" title="Přidat">
+                        <div class="card-body">
+                            +
+                        </div>
+                    </a>
+                </div>
+            </div>
+        {/if}
+        {foreach $authors as $author}
+            <div class="col mb-3">
+                <div class="card h-100">
+                    <div class="card-header">
+                        <h5 class="card-title d-inline">{$author->name} {$author->surname}</h5>
+                        <a n:href="edit $author->id" class="pull-right" data-toggle="tooltip" title="Upravit">
+                            <i class="fa fa-pencil" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                    <div class="card-body">
+                        <dl class="row">
+                            <dt class="col-6">Datum narození:</dt>
+                            <dd class="col-6">{$author->date_of_birth|date:"j. n. Y"}</dd>
+                            <dt class="col-6">Datum úmrtí:</dt>
+                            <dd class="col-6">{$author->date_of_death|date:"j. n. Y"}</dd>
+                            <dt class="col-6">Národnost:</dt>
+                            <dd class="col-6">{$author["nationality"]["name"]}</dd>
+                            <dt class="col-6">Pohlaví:</dt>
+                            <dd class="col-6 text-lowercase">{$author->sex|gender}</dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+        {/foreach}
+    </div>
+    {block paginator}
+        {include parent}
+    {/block}
+{/block}

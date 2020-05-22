@@ -1,0 +1,71 @@
+{block content}
+    <h2 class="text-center text-info mt-1 mb-3">Přehled knih</h2>
+    <div class="row">
+        <div class="mb-4 mr-0 ml-auto">
+            Seřadit podle:
+            <select id="sorter">
+                <option value="">---</option>
+                <option value="name-asc" {if $defaultSort == "name-asc"}selected{/if}>Názvu knihy A-Z</option>
+            </select>
+        </div>
+    </div>
+    {if $books->count() == 0}
+        <a n:href="add"><i class="fa fa-plus-circle"></i> Přidat knihu</a>
+    {/if}
+    <div class="row row-cols-md-4">
+        {if $books->count() > 0}
+            <div class="col mb-3">
+                <div class="card h-100">
+                    <a n:href="add" class="add-item" data-toggle="tooltip" title="Přidat">
+                        <div class="card-body">
+                            +
+                        </div>
+                    </a>
+                </div>
+            </div>
+        {/if}
+        {foreach $books as $book}
+            <div class="col mb-3">
+                <div class="card h-100">
+                    <div class="card-header">
+                        <h5 class="card-title d-inline">{$book->name}</h5>
+                        <span class="pull-right">
+                        <a n:href="detail $book->id" data-toggle="tooltip" title="Detail">
+                            <i class="fa fa-search" aria-hidden="true"></i>
+                        </a>
+                        <a n:href="edit $book->id" data-toggle="tooltip" title="Upravit">
+                            <i class="fa fa-pencil" aria-hidden="true"></i>
+                        </a>
+                    </span>
+                    </div>
+                    <div class="card-body">
+                        <dl class="row mb-0">
+                            <dt class="col-6">Autoři:</dt>
+                            <dd class="col-6">
+                                {foreach $book->related("author_book") as $authorBook}
+                                    {$authorBook->author->name} {$authorBook->author->surname}{sep}, {/sep}
+                                {/foreach}
+                            </dd>
+                            <dt class="col-6">Žánry:</dt>
+                            <dd class="col-6">
+                                {foreach $book->related("book_genre") as $bookGenre}
+                                    {$bookGenre->genre->name}{sep}, {/sep}
+                                {/foreach}
+                            </dd>
+                            <dt class="col-6">Vydání:</dt>
+                            <dd class="col-6">{$book->related("edition")->count()}</dd>
+                        </dl>
+                    </div>
+                    <div class="card-footer">
+                    <span class="pull-right badge badge-info badge-pill" data-toggle="tooltip" title="V přečtených">
+                        {$book->related("read_book")->count()}
+                    </span>
+                    </div>
+                </div>
+            </div>
+        {/foreach}
+    </div>
+    {block paginator}
+        {include parent}
+    {/block}
+{/block}

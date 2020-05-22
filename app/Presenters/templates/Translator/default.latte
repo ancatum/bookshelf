@@ -1,0 +1,47 @@
+{block content}
+    <h2 class="text-center text-info mt-1 mb-3">Přehled překladatelů</h2>
+    <div class="row">
+        <div class="mb-4 mr-0 ml-auto">
+            Seřadit podle:
+            <select id="sorter">
+                <option value="">---</option>
+                <option value="surname-asc" {if $defaultSort == "surname-asc"}selected{/if}>Příjmení A-Z</option>
+            </select>
+        </div>
+    </div>
+    {if $translators->count() == 0}
+        <a n:href="add"><i class="fa fa-plus-circle"></i> Přidat překladatele</a>
+    {/if}
+    <div class="row row-cols-md-4">
+        {if $translators->count() > 0}
+            <div class="col mb-3">
+                <div class="card h-100">
+                    <a n:href="add" class="add-item" data-toggle="tooltip" title="Přidat">
+                        <div class="card-body">
+                            +
+                        </div>
+                    </a>
+                </div>
+            </div>
+        {/if}
+        {foreach $translators as $translator}
+            <div class="col mb-3">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title d-inline">{$translator->name} {$translator->surname}</h5>
+                        <a n:href="edit $translator->id" class="pull-right" data-toggle="tooltip" title="Upravit">
+                            <i class="fa fa-pencil" aria-hidden="true"></i>
+                        </a>
+                        <dl class="row">
+                            <dt class="col-6">Pohlaví:</dt>
+                            <dd class="col-6 text-lowercase">{$translator->sex|gender}</dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+        {/foreach}
+    </div>
+    {block paginator}
+        {include parent}
+    {/block}
+{/block}

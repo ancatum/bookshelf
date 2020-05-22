@@ -1,0 +1,265 @@
+{block content}
+    <h2 class="text-center text-info mt-1 mb-3">Rok {$year}</h2>
+    <div class="row row-cols-md-4">
+        <div class="col mb-3">
+            <div class="card h-100">
+                <div class="card-header">
+                    <h5 class="card-title d-inline">Celkem přečteno</h5>
+                    <span class="pull-right badge badge-pill badge-info">
+                        {$readBookYearCount}
+                    </span>
+                </div>
+                <div class="card-body">
+                    <dl class="row mb-0">
+                        {foreach $readBookYearAndMonthCount as $month => $countBooks}
+                            <dt class="col-6">{$month|czechMonth}</dt>
+                            <dd class="col-6">{$countBooks}</dd>
+                        {/foreach}
+                    </dl>
+                </div>
+            </div>
+        </div>
+        <div class="col mb-3">
+            <div class="card h-100">
+                <div class="card-header">
+                    <h5 class="card-title d-inline">Autoři</h5>
+                    <span class="pull-right badge badge-pill badge-info">
+                        {$authorsCounts["allAuthorsCount"]}
+                    </span>
+                </div>
+                <div class="card-body">
+                    <dl class="row mb-0">
+                        <dt class="col-6">Muži</dt>
+                        <dd class="col-6">{$authorsCounts["author_man"]}
+                            ({($authorsCounts["author_man"]/$authorsCounts["allAuthorsCount"])*100|number: 2} %)
+                        </dd>
+                        <dt class="col-6">Ženy</dt>
+                        <dd class="col-6">{$authorsCounts["author_woman"]}
+                            ({($authorsCounts["author_woman"]/$authorsCounts["allAuthorsCount"])*100|number: 2} %)
+                        </dd>
+                    </dl>
+                    <dl class="row mb-0 mt-3">
+                        <dt class="col-6">Naživu v době čtení knihy</dt>
+                        <dd class="col-6">{$authorsCounts["alive_authors"]}
+                            ({($authorsCounts["alive_authors"]/$authorsCounts["allAuthorsCount"])*100|number: 2} %)
+                        </dd>
+                        <dt class="col-6">Po smrti v době čtení knihy</dt>
+                        <dd class="col-6">{$authorsCounts["dead_authors"]}
+                            ({($authorsCounts["dead_authors"]/$authorsCounts["allAuthorsCount"])*100|number: 2} %)
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+        <div class="col mb-3">
+            <div class="card h-100">
+                <div class="card-header">
+                    <h5 class="card-title d-inline">Národnosti autorů</h5>
+                    <span class="pull-right">
+                        česká: <span class="badge badge-pill badge-info">{$nationalitiesCounts["česká"]}</span>
+                    </span>
+                </div>
+                <div class="card-body">
+                    <dl class="row mb-0">
+                        {foreach $nationalitiesCounts as $nationality => $count}
+                            {if $nationality != "česká"}
+                                <dt class="col-6">{$nationality}</dt>
+                                <dd class="col-6">{$count}</dd>
+                            {/if}
+                        {/foreach}
+                    </dl>
+                </div>
+            </div>
+        </div>
+        <div class="col mb-3">
+            <div class="card h-100">
+                <div class="card-header">
+                    <h5 class="card-title d-inline">Překladatelé</h5>
+                    <span class="pull-right badge badge-pill badge-info">
+                        {$translatorsCounts["allTranslatorsCount"]}
+                    </span>
+                </div>
+                <div class="card-body">
+                    <dl class="row mb-0">
+                        <dt class="col-6">Muži</dt>
+                        <dd class="col-6">{$translatorsCounts["translator_man"]}</dd>
+                        <dt class="col-6">Ženy</dt>
+                        <dd class="col-6">{$translatorsCounts["translator_woman"]}</dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+        <div class="col mb-3">
+            <div class="card h-100">
+                <div class="card-header">
+                    <h5 class="card-title d-inline">TOP žánry</h5>
+                </div>
+                <div class="card-body">
+                    <dl class="row mb-0">
+                        {foreach $genresCounts as $genre => $count}
+                            <dt class="col-6">{$genre}</dt>
+                            <dd class="col-6">{$count}</dd>
+                        {/foreach}
+                    </dl>
+                </div>
+            </div>
+        </div>
+        <div class="col mb-3">
+            <div class="card h-100">
+                <div class="card-header">
+                    <h5 class="card-title d-inline">TOP štítky</h5>
+                </div>
+                <div class="card-body">
+                    <p>
+                        {foreach $tagsCounts as $tag => $count}
+                            {$tag} ({$count}){sep}, {/sep}
+                        {/foreach}
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col mb-3">
+            <div class="card h-100">
+                <div class="card-header">
+                    <h5 class="card-title d-inline">Typy knih</h5>
+                </div>
+                <div class="card-body">
+                    <dl class="row mb-0">
+                        {foreach $typesCounts as $type => $count}
+                            <dt class="col-6">{$type}</dt>
+                            <dd class="col-6">{$count}</dd>
+                        {/foreach}
+                    </dl>
+                </div>
+            </div>
+        </div>
+        <div class="col mb-3">
+            <div class="card h-100">
+                <div class="card-header">
+                    <h5 class="card-title d-inline">Zdroje knih</h5>
+                </div>
+                <div class="card-body">
+                    <dl class="row mb-0">
+                        {foreach $sourcesCounts as $source => $count}
+                            <dt class="col-6">{$source}</dt>
+                            <dd class="col-6">{$count}</dd>
+                        {/foreach}
+                    </dl>
+                </div>
+            </div>
+        </div>
+        <div class="col mb-3">
+            <div class="card h-100">
+                <div class="card-header">
+                    <h5 class="card-title d-inline">Počet stran (knihy a e-knihy)</h5>
+                    <span class="pull-right badge badge-pill badge-info">
+                        {$pagesCounts["sumPages"]}
+                    </span>
+                </div>
+                <div class="card-body">
+                    <dl class="row mb-0">
+                        <dt class="col-6">Nejvíce: {$pagesCounts["maxPages"]["pages"]}</dt>
+                        <dd class="col-6">{$pagesCounts["maxPages"]["name"]}</dd>
+                        <dt class="col-6">Nejméně: {$pagesCounts["minPages"]["pages"]}</dt>
+                        <dd class="col-6">{$pagesCounts["minPages"]["name"]}</dd>
+                        <dt class="col-6">Průměr stran na knihu:</dt>
+                        <dd class="col-6">{$pagesCounts["averagePages"]|number: 2}</dd>
+                        <dt class="col-6">Průměrně přečteno denně:</dt>
+                        <dd class="col-6">{$pagesCounts["averagePagesPerDay"]|number: 2} stran</dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+        <div class="col mb-3">
+            <div class="card h-100">
+                <div class="card-header">
+                    <h5 class="card-title d-inline">Doba trvání (audioknihy)</h5>
+                    <span class="pull-right badge badge-pill badge-info">
+                        {$durations["sumDuration"]|duration}
+                    </span>
+                </div>
+                <div class="card-body">
+                    <dl class="row mb-0">
+                        <dt class="col-6">Nejvíce: {$durations["maxDuration"]["duration"]|duration}</dt>
+                        <dd class="col-6">{$durations["maxDuration"]["name"]}</dd>
+                        <dt class="col-6">Nejméně: {$durations["minDuration"]["duration"]|duration}</dt>
+                        <dd class="col-6">{$durations["minDuration"]["name"]}</dd>
+                        <dt class="col-6">Průměrná doba trvání</dt>
+                        <dd class="col-6">{$durations["averageDuration"]|duration}</dd>
+                        <dt class="col-6">Průměrně poslechnuto denně</dt>
+                        <dd class="col-6">{$durations["averageDurationPerDay"]|duration}</dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+        <div class="col mb-3">
+            <div class="card h-100">
+                <div class="card-header">
+                    <h5 class="card-title d-inline">Interpreti audioknih</h5>
+                    <span class="pull-right badge badge-pill badge-info">
+                        {$bookReadersCounts["allBookReadersCount"]}
+                    </span>
+                </div>
+                <div class="card-body">
+                    <dl class="row mb-0">
+                        <dt class="col-6">Muži</dt>
+                        <dd class="col-6">{$bookReadersCounts["book_reader_man"]}</dd>
+                        <dt class="col-6">Ženy</dt>
+                        <dd class="col-6">{$bookReadersCounts["book_reader_woman"]}</dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+        <div class="col mb-3">
+            <div class="card h-100">
+                <div class="card-header">
+                    <h5 class="card-title d-inline">Hodnocení</h5>
+                </div>
+                <div class="card-body">
+                    <dl class="row mb-0">
+                        <dt class="col-6">Celkem</dt>
+                        <dd class="col-6">{$ratings["sumRating"]} <i class="fa fa-star"></i></dd>
+                        <dt class="col-6">průměr</dt>
+                        <dd class="col-6">{$ratings["averageRating"]|number: 2} <i class="fa fa-star"></i></dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+        <div class="col mb-3">
+            <div class="card h-100">
+                <div class="card-header">
+                    <h5 class="card-title d-inline">Čtenářský klub ČBDB</h5>
+                    <span class="pull-right badge badge-pill badge-info">{$readingClubCounts["count"]}</span>
+                </div>
+                <div class="card-body">
+                    <dl class="row mb-0">
+                        {foreach $readingClubCounts as $month => $book}
+                            {if $month != "count"}
+                                <dt class="col-6">{$month|czechMonth}</dt>
+                                <dd class="col-6">{$book}</dd>
+                            {/if}
+                        {/foreach}
+                    </dl>
+                </div>
+            </div>
+        </div>
+        <div class="col mb-3">
+            <div class="card h-100">
+                <div class="card-header">
+                    <h5 class="card-title d-inline">Jazyk</h5>
+                    <span class="pull-right badge badge-pill badge-info">{$languages["sum"]}</span>
+                </div>
+                <div class="card-body">
+                    <dl class="row mb-0">
+                        {foreach $languages as $lang => $count}
+                            {if $lang != "sum"}
+                                <dt class="col-6">{$lang}</dt>
+                                <dd class="col-6">{$count}</dd>
+                            {/if}
+                        {/foreach}
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>
+{/block}

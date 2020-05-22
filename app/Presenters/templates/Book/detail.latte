@@ -1,0 +1,109 @@
+{block content}
+    <h2 class="text-center text-info mt-1 mb-3">{$book->name} <a n:href="edit $book->id" class="hidden-edit"><i class="fa fa-pencil"></i></a></h2>
+    <div class="row row-cols-md-3">
+        <div class="col mb-4">
+            <div class="card h-100">
+                <div class="card-header">
+                    <h5 class="card-title text-center">Autoři</h5>
+                </div>
+                <div class="card-body">
+                    <p>
+                        {foreach $book->related("author_book") as $authorBook}
+                            {$authorBook->author->name} {$authorBook->author->surname}{sep}<br>{/sep}
+                        {/foreach}
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col mb-4">
+            <div class="card h-100">
+                <div class="card-header">
+                    <h5 class="card-title text-center">Žánry</h5>
+                </div>
+                <div class="card-body">
+                    <p>
+                        {foreach $book->related("book_genre") as $bookGenre}
+                            <span class="badge custom-badge">{$bookGenre->genre->name}</span>
+                        {/foreach}
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col mb-4">
+            <div class="card h-100">
+                <div class="card-header">
+                    <h5 class="card-title text-center">Štítky</h5>
+                </div>
+                <div class="card-body">
+                    <p>
+                        {foreach $book->related("book_tag") as $bookTag}
+                            <small>{$bookTag->tag->name}{sep}, {/sep}</small>
+                        {/foreach}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card mb-4">
+        <div class="card-header">
+            <h5 class="card-title text-center d-inline">Vydání</h5>
+            <span class="pull-right">
+                <a n:href="Edition:add $book->id" class="btn btn-sm btn-outline-info">
+                    <i class="fa fa-plus-circle"></i>
+                    Přidat nové
+                </a>
+            </span>
+        </div>
+        <div class="card-body">
+            <table class="table table-responsive-lg">
+                <thead class="text-light bg-info">
+                <tr>
+                    <th>Nakladatelství (rok)</th>
+                    <th>Počet stran</th>
+                    <th>Doba trvání</th>
+                    <th>Typ</th>
+                    <th>Překladatelé</th>
+                    <th>Interpreti audioknih</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                {foreach $book->related("edition") as $edition}
+                    <tr>
+                        <td>{$edition["publisher"]["name"]} ({$edition->year})</td>
+                        <td>{$edition->number_of_pages}</td>
+                        <td>{$edition->duration|duration}</td>
+                        <td class="text-lowercase">{$edition->type|type}</td>
+                        <td>
+                            {foreach $edition->related("edition_translator") as $editionTranslator}
+                                {$editionTranslator->translator->name} {$editionTranslator->translator->surname}
+                                {sep}<br>{/sep}
+                            {/foreach}
+                        </td>
+                        <td>
+                            {foreach $edition->related("edition_book_reader") as $editionBookReader}
+                                {$editionBookReader->book_reader->name} {$editionBookReader->book_reader->surname}
+                                {sep}<br>{/sep}
+                            {/foreach}
+                        </td>
+                        <td>
+                            <a n:href="Edition:edit $book->id, $edition->id" data-toggle="tooltip" title="Upravit">
+                                <i class="fa fa-pencil"></i>
+                            </a>
+                            <a n:href="ReadBook:add $book->id, $edition->id" data-toggle="tooltip"
+                                                                             title="Přidat do přečtených">
+                                <i class="fa fa-book"></i>
+                            </a>
+                            {if $edition->related("read_book")->count() > 0}
+                                <i class="fa fa-check-circle" aria-hidden="true" data-toggle="tooltip"
+                                   title="Přečteno"></i>
+                            {/if}
+                        </td>
+                    </tr>
+                {/foreach}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <a n:href="default"><i class="fa fa-long-arrow-left" aria-hidden="true"></i> Zpět na přehled knih</a>
+{/block}

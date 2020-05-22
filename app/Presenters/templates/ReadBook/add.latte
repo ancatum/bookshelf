@@ -1,0 +1,28 @@
+{block content}
+    <h2 class="text-center text-info mt-1 mb-3">Přidat přečtenou knihu</h2>
+    {control readBookForm}
+{/block}
+{block scripts}
+    {include parent}
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#bookSelect").on("change", function () {
+                var bookId = $("#bookSelect").val();
+                $.nette.ajax({
+                    url: {link editions!},
+                    data: { bookId },
+                    success: function (data) {
+                        $("#editions").val(data.editionsOptions);
+                        $("#editions").trigger("change");
+                        var editionsSelect = $("#editions");
+                        editionsSelect.empty();
+                        $.each(data.editionsOptions, function (key, value) {
+                            editionsSelect.append($("<option></option>").attr("value", key).text(value));
+                        });
+                        $("#editions").trigger("chosen:updated");
+                    }
+                });
+            });
+        });
+    </script>
+{/block}

@@ -1,0 +1,179 @@
+{block content}
+    <h2 class="text-center text-info mt-1 mb-3">{$readBook["book"]["name"]}</h2>
+    <div class="row">
+        <div class="col mb-3">
+            <div class="card h-100">
+                <div class="card-header">
+                    <h5 class="card-title d-inline">Základní informace</h5>
+                    <span class="pull-right">
+                        <a n:href="edit $readBook->id" data-toggle="tooltip" title="Upravit">
+                            <i class="fa fa-pencil"></i>
+                        </a>
+                    </span>
+                </div>
+                <div class="card-body">
+                    <dl class="row mb-0">
+                        <dt class="col-6">Autoři</dt>
+                        <dd class="dd col-6">
+                            {foreach $readBook->book->related("author_book") as $authorBook}
+                                <p>{$authorBook->author->name} {$authorBook->author->surname}{sep}, {/sep}</p>
+                            {/foreach}
+                        </dd>
+                        {if $readBook->start}
+                            <dt class="col-6">Začátek čtení</dt>
+                            <dd class="dd col-6">{$readBook->start|date:"j. n. Y"}</dd>
+                        {/if}
+                        <dt class="col-6">Dočteno</dt>
+                        <dd class="dd col-6">{$readBook->end|date:"j. n. Y"}</dd>
+                        <dt class="col-6">Hodnocení</dt>
+                        <dd class="dd col-6">
+                            {$readBook->rating|rating|noescape}
+                        </dd>
+                        <dt class="col-6">Zdroj</dt>
+                        <dd class="dd col-6">{$readBook->source|source}</dd>
+                        <dt class="col-6">Čtenářský klub ČBDB</dt>
+                        <dd class="dd col-6">
+                            {if $readBook->reading_club}
+                                <i class="fa fa-check-circle" aria-hidden="true"></i>
+                            {else}
+                                <i class="fa fa-times-circle" aria-hidden="true"></i>
+                            {/if}
+                        </dd>
+
+                    </dl>
+                </div>
+            </div>
+        </div>
+        <div class="col mb-3">
+            <div class="card h-100">
+                <div class="card-header">
+                    <h5 class="card-title d-inline">Čtené vydání</h5>
+                </div>
+                <div class="card-body">
+                    <dl class="row mb-0">
+                        <dt class="col-6">Nakladatelství</dt>
+                        <dd class="col-6">{$edition["publisher"]["name"]}</dd>
+                        <dt class="col-6">Rok vydání</dt>
+                        <dd class="col-6">{$edition->year}</dd>
+                        <dt class="col-6">Typ knihy</dt>
+                        <dd class="col-6">{$edition->type|type}</dd>
+                        {if $edition->type != "audio"}
+                            <dt class="col-6">Počet stran</dt>
+                            <dd class="col-6">{$edition->number_of_pages}</dd>
+                        {else}
+                            <dt class="col-6">Doba trvání</dt>
+                            <dd class="col-6">{$edition->duration|duration}</dd>
+                        {/if}
+                        {if $edition->related("edition_translator")->count() > 0}
+                            <dt class="col-6">Překlad</dt>
+                            <dd class="col-6">
+                                {foreach $edition->related("edition_translator") as $editionTranslator}
+                                    {$editionTranslator->translator->name} {$editionTranslator->translator->surname}
+                                    {sep}, {/sep}
+                                {/foreach}
+                            </dd>
+                        {/if}
+                        {if $edition->type == "audio"}
+                            <dt class="col-6">Interpret</dt>
+                            <dd class="col-6">
+                                {foreach $edition->related("edition_book_reader") as $editionBookReader}
+                                    {$editionBookReader->book_reader->name} {$editionBookReader->book_reader->surname}
+                                    {sep}, {/sep}
+                                {/foreach}
+                            </dd>
+                        {/if}
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>
+    <p>Kniha byla přečtena celkem: <span class="badge badge-info badge-pill">{$readBookList->count()}x</span></p>
+    <h4 class="mb-3">Další záznamy o přečtení</h4>
+    {if $readBookList->count() > 1}
+        {foreach $readBookList as $otherReadBook}
+            {if $otherReadBook->id != $readBook->id}
+                <div class="row">
+                    <div class="col mb-3">
+                        <div class="card h-100">
+                            <div class="card-header">
+                                <h5 class="card-title d-inline">Základní informace</h5>
+                                <span class="pull-right">
+                        <a n:href="edit $otherReadBook->id" data-toggle="tooltip" title="Upravit">
+                            <i class="fa fa-pencil"></i>
+                        </a>
+                    </span>
+                            </div>
+                            <div class="card-body">
+                                <dl class="row mb-0">
+                                    {if $otherReadBook->start}
+                                        <dt class="col-6">Začátek čtení</dt>
+                                        <dd class="dd col-6">{$otherReadBook->start|date:"j. n. Y"}</dd>
+                                    {/if}
+                                    <dt class="col-6">Dočteno</dt>
+                                    <dd class="dd col-6">{$otherReadBook->end|date:"j. n. Y"}</dd>
+                                    <dt class="col-6">Hodnocení</dt>
+                                    <dd class="dd col-6">
+                                        {$otherReadBook->rating|rating|noescape}
+                                    </dd>
+                                    <dt class="col-6">Zdroj</dt>
+                                    <dd class="dd col-6">{$otherReadBook->source|source}</dd>
+                                    <dt class="col-6">Čtenářský klub ČBDB</dt>
+                                    <dd class="dd col-6">
+                                        {if $otherReadBook->reading_club}
+                                            <i class="fa fa-check-circle" aria-hidden="true"></i>
+                                        {else}
+                                            <i class="fa fa-times-circle" aria-hidden="true"></i>
+                                        {/if}
+                                    </dd>
+                                </dl>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col mb-3">
+                        <div class="card h-100">
+                            <div class="card-header">
+                                <h5 class="card-title d-inline">Čtené vydání</h5>
+                            </div>
+                            <div class="card-body">
+                                <dl class="row mb-0">
+                                    <dt class="col-6">Nakladatelství</dt>
+                                    <dd class="col-6">{$otherReadBook->edition["publisher"]["name"]}</dd>
+                                    <dt class="col-6">Rok vydání</dt>
+                                    <dd class="col-6">{$otherReadBook->edition->year}</dd>
+                                    <dt class="col-6">Typ knihy</dt>
+                                    <dd class="col-6">{$otherReadBook->edition->type|type}</dd>
+                                    {if $otherReadBook->edition->type != "audio"}
+                                        <dt class="col-6">Počet stran</dt>
+                                        <dd class="col-6">{$otherReadBook->edition->number_of_pages}</dd>
+                                    {else}
+                                        <dt class="col-6">Doba trvání</dt>
+                                        <dd class="col-6">{$otherReadBook->edition->duration|duration}</dd>
+                                    {/if}
+                                    {if $otherReadBook->edition->related("edition_translator")->count() > 0}
+                                        <dt class="col-6">Překlad</dt>
+                                        <dd class="col-6">
+                                            {foreach $otherReadBook->edition->related("edition_translator") as $editionTranslator}
+                                                {$editionTranslator->translator->name} {$editionTranslator->translator->surname}
+                                                {sep}, {/sep}
+                                            {/foreach}
+                                        </dd>
+                                    {/if}
+                                    {if $otherReadBook->edition->type == "audio"}
+                                        <dt class="col-6">Interpret</dt>
+                                        <dd class="col-6">
+                                            {foreach $otherReadBook->edition->related("edition_book_reader") as $editionBookReader}
+                                                {$editionBookReader->book_reader->name} {$editionBookReader->book_reader->surname}
+                                                {sep}, {/sep}
+                                            {/foreach}
+                                        </dd>
+                                    {/if}
+                                </dl>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {/if}
+        {/foreach}
+    {/if}
+    <a n:href="default"><i class="fa fa-long-arrow-left" aria-hidden="true"></i> Zpět na přehled přečtených knih</a>
+{/block}

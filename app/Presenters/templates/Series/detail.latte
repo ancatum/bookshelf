@@ -1,0 +1,7 @@
+{block content}
+    <h2 class="text-center text-info mt-1 mb-3">{$series->name}</h2>
+    {foreach $series->related("book")->order("part_of_series") as $book}
+        <p>{$book->part_of_series}. díl: {$book->name}</p>
+    {/foreach}
+    <a n:href="default"><i class="fa fa-long-arrow-left" aria-hidden="true"></i> Zpět na přehled sérií</a>
+{/block}

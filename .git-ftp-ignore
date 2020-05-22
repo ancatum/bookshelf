@@ -1,0 +1,11 @@
+.git/
+.vscode/
+.idea/
+local.neon
+readme.md
+screenshot.jpg
+.gitignore
+composer.json
+composer.lock
+cache/*
+log/*
