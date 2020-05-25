@@ -6,10 +6,7 @@
 
     <title>{ifset title}{include title|stripHtml} | {/ifset}Áni knihovna</title>
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700&display=swap&subset=latin-ext" rel="stylesheet">
-    <link rel="stylesheet" href="{$basePath}/font-awesome/css/font-awesome.css">
-    <link rel="stylesheet" href="{$basePath}/css/bootstrap.min.css">
-    <link rel="stylesheet" href="{$basePath}/css/chosen.min.css">
-    <link rel="stylesheet" href="{$basePath}/css/style.css">
+    <link rel="stylesheet" href="{$basePath}/assets/css/style.css">
 </head>
 
 <body>
@@ -75,12 +72,12 @@
             <ul class="pagination pagination-sm">
                 <li class="page-item">
                     <a class="btn btn-sm btn-outline-info {if $page == 1}disabled{/if}" n:href="default 1, $sortBy, $direction">
-                        <i class="fa fa-angle-double-left"></i>
+                        <i class="fas fa-angle-double-left"></i>
                     </a>
                 </li>
                 <li class="page-item mr-1">
                     <a n:href="default $page-1, $sortBy, $direction" class="btn btn-sm btn-outline-info {if $page == 1}disabled{/if}">
-                        <i class="fa fa-angle-left"></i>
+                        <i class="fas fa-angle-left"></i>
                     </a>
                 </li>
                 {for $i = 1; $i <= $lastPage; $i++}
@@ -102,12 +99,12 @@
                 {/for}
                 <li class="page-item ml-1">
                     <a n:href="default $page+1, $sortBy, $direction" class="btn btn-sm btn-outline-info {if $page == $lastPage}disabled{/if}">
-                        <i class="fa fa-angle-right"></i>
+                        <i class="fas fa-angle-right"></i>
                     </a>
                 </li>
                 <li class="page-item">
                     <a class="btn btn-sm btn-outline-info {if $page == $lastPage}disabled{/if}" n:href="default $lastPage, $sortBy, $direction">
-                        <i class="fa fa-angle-double-right"></i>
+                        <i class="fas fa-angle-double-right"></i>
                     </a>
                 </li>
             </ul>

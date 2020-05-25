@@ -1,5 +1,5 @@
 {block content}
-    <h2 class="text-center text-info mt-1 mb-3">{$book->name} <a n:href="edit $book->id" class="hidden-edit"><i class="fa fa-pencil"></i></a></h2>
+    <h2 class="text-center text-info mt-1 mb-3">{$book->name} <a n:href="edit $book->id" class="hidden-edit"><i class="fas fa-pencil-alt"></i></a></h2>
     <div class="row row-cols-md-3">
         <div class="col mb-4">
             <div class="card h-100">
@@ -49,7 +49,7 @@
             <h5 class="card-title text-center d-inline">Vydání</h5>
             <span class="pull-right">
                 <a n:href="Edition:add $book->id" class="btn btn-sm btn-outline-info">
-                    <i class="fa fa-plus-circle"></i>
+                    <i class="fas fa-plus-circle"></i>
                     Přidat nové
                 </a>
             </span>
@@ -88,14 +88,14 @@
                         </td>
                         <td>
                             <a n:href="Edition:edit $book->id, $edition->id" data-toggle="tooltip" title="Upravit">
-                                <i class="fa fa-pencil"></i>
+                                <i class="fas fa-pencil-alt"></i>
                             </a>
                             <a n:href="ReadBook:add $book->id, $edition->id" data-toggle="tooltip"
                                                                              title="Přidat do přečtených">
-                                <i class="fa fa-book"></i>
+                                <i class="fas fa-book"></i>
                             </a>
                             {if $edition->related("read_book")->count() > 0}
-                                <i class="fa fa-check-circle" aria-hidden="true" data-toggle="tooltip"
+                                <i class="fas fa-check-circle" aria-hidden="true" data-toggle="tooltip"
                                    title="Přečteno"></i>
                             {/if}
                         </td>
@@ -105,5 +105,5 @@
             </table>
         </div>
     </div>
-    <a n:href="default"><i class="fa fa-long-arrow-left" aria-hidden="true"></i> Zpět na přehled knih</a>
+    <a n:href="default"><i class="fas fa-long-arrow-alt-left"></i> Zpět na přehled knih</a>
 {/block}

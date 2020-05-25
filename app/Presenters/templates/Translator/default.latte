@@ -10,7 +10,7 @@
         </div>
     </div>
     {if $translators->count() == 0}
-        <a n:href="add"><i class="fa fa-plus-circle"></i> Přidat překladatele</a>
+        <a n:href="add"><i class="fas fa-plus-circle"></i> Přidat překladatele</a>
     {/if}
     <div class="row row-cols-md-4">
         {if $translators->count() > 0}
@@ -30,7 +30,7 @@
                     <div class="card-body">
                         <h5 class="card-title d-inline">{$translator->name} {$translator->surname}</h5>
                         <a n:href="edit $translator->id" class="pull-right" data-toggle="tooltip" title="Upravit">
-                            <i class="fa fa-pencil" aria-hidden="true"></i>
+                            <i class="fas fa-pencil-alt" aria-hidden="true"></i>
                         </a>
                         <dl class="row">
                             <dt class="col-6">Pohlaví:</dt>

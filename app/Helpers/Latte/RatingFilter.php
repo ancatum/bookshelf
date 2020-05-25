@@ -18,17 +18,14 @@ class RatingFilter
             return "nehodnoceno";
         } elseif (RatingEnum::getValue($ratingKey) == 0) {
             return Html::el("div")->addAttributes(["class" => "thumbDown"])->addHtml(Html::el("i")->addAttributes([
-                "class" => "fa fa-thumbs-down",
-                "aria-hidden" => "true",
+                "class" => "fas fa-thumbs-down",
             ]));
         } else {
             $fullStar = Html::el("div")->addAttributes(["class" => "fullStar"])->addHtml(Html::el("i")->addAttributes([
-                "class" => "fa fa-star",
-                "aria-hidden" => "true",
+                "class" => "fas fa-star",
             ]));
             $emptyStar = Html::el("div")->addAttributes(["class" => "emptyStar"])->addHtml(Html::el("i")->addAttributes([
-                "class" => "fa fa-star",
-                "aria-hidden" => "true",
+                "class" => "fas fa-star",
             ]));
 
             $maxRating = 5;

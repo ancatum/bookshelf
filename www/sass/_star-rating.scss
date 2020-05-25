@@ -1,0 +1,52 @@
+@import "bootswatch-variables";
+@import "variables";
+
+.thumbDown,
+.fullStar,
+.emptyStar {
+  display: inline;
+}
+
+.thumbDown > .fa-thumbs-down::before,
+.emptyStar > .fa-star::before {
+  color: $light-grey;
+}
+
+.fullStar > .fa-star::before {
+  color: $cyan;
+}
+
+.star-rating-component .star-rating-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.star-rating-component .star-rating-list li {
+  display: inline;
+}
+
+.star-rating-component .star-rating-list li.book-rating i::before {
+  color: $light-grey;
+}
+
+.star-rating-component .star-rating-list li.book-rating-remove i::before {
+  color: $red-cross;
+  margin-left: 5px;
+}
+
+.star-rating-component .star-rating-list li.highlight-book-rating i::before,
+.star-rating-component .star-rating-list li.selected-book-rating i::before{
+  color: $cyan;
+}
+
+.star-rating-component .star-rating-list li {
+  cursor: pointer;
+}
+
+.fa-check-circle::before {
+  color: $green-check;
+}
+
+.fa-times-circle::before {
+  color: $red-cross;
+}

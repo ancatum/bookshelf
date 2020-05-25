@@ -1,14 +1,14 @@
 {block content}
     <h2 class="text-center text-info mt-1 mb-3">Přehled sérií</h2>
-    <a n:href="add"><i class="fa fa-plus-circle"></i> Přidat novou sérii</a>
+    <a n:href="add"><i class="fas fa-plus-circle"></i> Přidat novou sérii</a>
     <ul>
         {foreach $seriesList as $series}
             <li>{$series->name}
-                <a n:href="edit $series->id" data-toggle="tooltip" title="Upravit">
-                    <i class="fa fa-pencil"></i>
-                </a>
                 <a n:href="detail $series->id" data-toggle="tooltip" title="Detail">
-                    <i class="fa fa-search"></i>
+                    <i class="fas fa-search"></i>
+                </a>
+                <a n:href="edit $series->id" data-toggle="tooltip" title="Upravit">
+                    <i class="fas fa-pencil-alt"></i>
                 </a>
             </li>
         {/foreach}

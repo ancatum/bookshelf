@@ -7,7 +7,7 @@
                     <h5 class="card-title d-inline">Základní informace</h5>
                     <span class="pull-right">
                         <a n:href="edit $readBook->id" data-toggle="tooltip" title="Upravit">
-                            <i class="fa fa-pencil"></i>
+                            <i class="fas fa-pencil-alt"></i>
                         </a>
                     </span>
                 </div>
@@ -34,9 +34,9 @@
                         <dt class="col-6">Čtenářský klub ČBDB</dt>
                         <dd class="dd col-6">
                             {if $readBook->reading_club}
-                                <i class="fa fa-check-circle" aria-hidden="true"></i>
+                                <i class="fas fa-check-circle"></i>
                             {else}
-                                <i class="fa fa-times-circle" aria-hidden="true"></i>
+                                <i class="fas fa-times-circle"></i>
                             {/if}
                         </dd>
 
@@ -99,7 +99,7 @@
                                 <h5 class="card-title d-inline">Základní informace</h5>
                                 <span class="pull-right">
                         <a n:href="edit $otherReadBook->id" data-toggle="tooltip" title="Upravit">
-                            <i class="fa fa-pencil"></i>
+                            <i class="fas fa-pencil-alt"></i>
                         </a>
                     </span>
                             </div>
@@ -120,9 +120,9 @@
                                     <dt class="col-6">Čtenářský klub ČBDB</dt>
                                     <dd class="dd col-6">
                                         {if $otherReadBook->reading_club}
-                                            <i class="fa fa-check-circle" aria-hidden="true"></i>
+                                            <i class="fas fa-check-circle" aria-hidden="true"></i>
                                         {else}
-                                            <i class="fa fa-times-circle" aria-hidden="true"></i>
+                                            <i class="fas fa-times-circle" aria-hidden="true"></i>
                                         {/if}
                                     </dd>
                                 </dl>
@@ -175,5 +175,5 @@
             {/if}
         {/foreach}
     {/if}
-    <a n:href="default"><i class="fa fa-long-arrow-left" aria-hidden="true"></i> Zpět na přehled přečtených knih</a>
+    <a n:href="default"><i class="fas fa-long-arrow-alt-left"></i> Zpět na přehled přečtených knih</a>
 {/block}

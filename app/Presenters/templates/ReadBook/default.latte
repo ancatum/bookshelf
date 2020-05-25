@@ -14,7 +14,7 @@
         </div>
     </div>
     {if $readBooks->count() == 0}
-        <a n:href="add"><i class="fa fa-plus-circle"></i> Přidat přečtenou knihu</a>
+        <a n:href="add"><i class="fas fa-plus-circle"></i> Přidat přečtenou knihu</a>
     {/if}
     <div class="row row-cols-md-4">
         {if $readBooks->count() > 0}
@@ -35,10 +35,10 @@
                         <h5 class="card-title d-inline">{$readBook["book"]["name"]}</h5>
                         <span class="pull-right">
                         <a n:href="detail $readBook->id" data-toggle="tooltip" title="Detail">
-                            <i class="fa fa-search" aria-hidden="true"></i>
+                            <i class="fas fa-search" aria-hidden="true"></i>
                         </a>
                         <a n:href="edit $readBook->id" data-toggle="tooltip" title="Upravit">
-                            <i class="fa fa-pencil" aria-hidden="true"></i>
+                            <i class="fas fa-pencil-alt" aria-hidden="true"></i>
                         </a>
                     </span>
                     </div>
